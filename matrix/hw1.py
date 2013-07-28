@@ -43,35 +43,73 @@ f_4 = {
 'e':[0,0,0,0,one,one,0],
 'f':[0,0,0,0,0,one,one],
 }
-u_0010010 =
-u_0100010 = ...
+u_0010010 = {'c','d','e'}
+u_0100010 = {'b','c','d','e'}
 
 
 
 ## Problem 5
 # Use the same format as the previous problem
+#def add_them(keys,functions):
+#    ret = [0,0,0,0,0,0,0]
+#    for key in keys:
+#        for i,v in enumerate(functions[key]):
+#            ret[i] += v
+#    return ret
+#
+#def find_it(functions):
+#    fields = list(functions.keys())
+#    fields += [None]
+#    for i in fields:
+#        for j in fields:
+#            for k in fields:
+#                for l in fields:
+#                    for m in fields:
+#                        for n in fields:
+#                            go = set()
+#                            go.update({i}) if i != None else None
+#                            go.update({j}) if j != None else None
+#                            go.update({k}) if k != None else None
+#                            go.update({l}) if l != None else None
+#                            go.update({m}) if m != None else None
+#                            go.update({n}) if n != None else None
+#                            if set() == go:
+#                                continue
+#                            sum = add_them(go,functions)
+#                            if sum == [0,1,0,0,0,1,0]:
+#                                print("===================================>",go)
 
-v_0010010 = ...
-v_0100010 = ...
 
+f_5 = {
+'a':[one,one,one,0,0,0,0],
+'b':[0,one,one,one,0,0,0],
+'c':[0,0,one,one,one,0,0],
+'d':[0,0,0,one,one,one,0],
+'e':[0,0,0,0,one,one,one],
+'f':[0,0,0,0,0,one,one],
+}
+v_0010010 = {'c','d'}
+v_0100010 = set()
+
+#print(add_them({'b','c','d','e','f'}, f_5))
 
 
 ## Problem 6
-uv_a = ...
-uv_b = ...
-uv_c = ...
-uv_d = ...
+uv_a = sum([v*u for u,v in zip([1,0],[5,4321])])
+uv_b = sum([v*u for u,v in zip([0,1],[12345,6])])
+uv_c = sum([v*u for u,v in zip([-1,3],[5,7])])
+uv_d = sum([v*u for u,v in zip([-(2**.5/2),(2**.5/2)],[(2**.5/2),-(2**.5/2)])])
 
 
 
 ## Problem 7
 # use 'one' instead of '1'
-x_gf2 = [...]
+x_gf2 = [one,0,0,0]
 
 
 
 ## Problem 8
-v1 = [...]
-v2 = [...]
-v3 = [...]
+v1 = [2,3,-4,1]
+v2 = [1,-5,2,0]
+v3 = [4,1,-1,-1]
 
