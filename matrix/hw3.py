@@ -3,7 +3,7 @@
 
 from mat import Mat
 from vec import Vec
-
+from matutil import *
 
 
 ## Problem 1
@@ -146,9 +146,7 @@ column_row_vector_multiplication5 = Vec({0, 1, 2}, {0:-3,1:1,2:9})
 ## Problem 11
 def lin_comb_mat_vec_mult(M, v):
     assert(M.D[1] == v.D)
-    column_vectors_dict = {c:Vec(M.D[0], {r:M.f[(r,c)] for r in M.D[0] if (r,c) in M.f}) for c in M.D[1]}
-    column_vectors = [v[key]*value for key,value in column_vectors_dict.items()]
-    return sum(column_vectors)
+    return sum([v[key]*value for key,value in mat2coldict(M).items()])
 
 
 
@@ -156,66 +154,90 @@ def lin_comb_mat_vec_mult(M, v):
 ## Problem 12
 def lin_comb_vec_mat_mult(v, M):
     assert(v.D == M.D[0])
-    row_vectors_dict = {r:Vec(M.D[1], {c:M.f[(r,c)] for c in M.D[1] if (r,c) in M.f}) for r in M.D[0]}
-    row_vectors = [v[key]*value for key,value in row_vectors_dict.items()]
-    return sum(row_vectors)
+    return sum([v[key]*value for key,value in mat2rowdict(M).items()])
 
 
 
 ## Problem 13
 def dot_product_mat_vec_mult(M, v):
     assert(M.D[1] == v.D)
-    row_vectors_dict = {r:Vec(M.D[1], {c:M.f[(r,c)] for c in M.D[1] if (r,c) in M.f}) for r in M.D[0]}
-    return Vec(M.D[0], {key:value*v for key,value in row_vectors_dict.items()})
+    return Vec(M.D[0], {key:value*v for key,value in mat2rowdict(M).items()})
 
 
 
 ## Problem 14
 def dot_product_vec_mat_mult(v, M):
     assert(v.D == M.D[0])
-    column_vectors_dict = {c:Vec(M.D[0], {r:M.f[(r,c)] for r in M.D[0] if (r,c) in M.f}) for c in M.D[1]}
-    return Vec(M.D[1], {key:value*v for key,value in column_vectors_dict.items()})
+    return Vec(M.D[1], {key:value*v for key,value in mat2coldict(M).items()})
 
 
 
 ## Problem 15
 def Mv_mat_mat_mult(A, B):
     assert A.D[1] == B.D[0]
-    pass
+    coldict = {c:A*s for c,s in mat2coldict(B).items()}
+    return coldict2mat(coldict)
 
 
 
 ## Problem 16
 def vM_mat_mat_mult(A, B):
     assert A.D[1] == B.D[0]
-    pass
+    rowdict = {r:s*B for r,s in mat2rowdict(A).items()}
+    return rowdict2mat(rowdict)
 
 
 
 ## Problem 17
 def dot_prod_mat_mat_mult(A, B):
     assert A.D[1] == B.D[0]
-    pass
+    aRowDict = mat2rowdict(A)
+    bColDict = mat2coldict(B)
+    return Mat((A.D[0],B.D[1]), {(r,c):row*column for r,row in aRowDict.items() for c,column in bColDict.items()})
 
 
 
 ## Problem 18
-solving_systems_x1 = ...
-solving_systems_x2 = ...
-solving_systems_y1 = ...
-solving_systems_y2 = ...
-solving_systems_m = Mat(({0, 1}, {0, 1}), {...})
-solving_systems_a = Mat(({0, 1}, {0, 1}), {...})
-solving_systems_a_times_m = Mat(({0, 1}, {0, 1}), {...})
-solving_systems_m_times_a = Mat(({0, 1}, {0, 1}), {...})
+solving_systems_x1 = -0.2
+solving_systems_x2 =  0.4
+solving_systems_y1 =  0.8
+solving_systems_y2 = -0.6
+solving_systems_m = Mat(({0, 1}, {0, 1}),
+                        {
+                        (0,0):solving_systems_x1,
+                        (1,0):solving_systems_x2,
+                        (0,1):solving_systems_y1,
+                        (1,1):solving_systems_y2
+                        })
+solving_systems_a = Mat(({0, 1}, {0, 1}),
+                        {
+                        (0,0):3,
+                        (1,0):2,
+                        (0,1):4,
+                        (1,1):1
+                        })
+solving_systems_a_times_m = Mat(({0, 1}, {0, 1}),
+                                {
+                                (0,0):1,
+                                (1,0):0,
+                                (0,1):0,
+                                (1,1):1
+                                })
+solving_systems_m_times_a = Mat(({0, 1}, {0, 1}),
+                                {
+                                (0,0):1,
+                                (1,0):0,
+                                (0,1):0,
+                                (1,1):1
+                                })
 
 
 
 ## Problem 19
 # Please write your solutions as booleans (True or False)
 
-are_inverses1 = ...
-are_inverses2 = ...
-are_inverses3 = ...
-are_inverses4 = ...
+are_inverses1 = True
+are_inverses2 = True
+are_inverses3 = False
+are_inverses4 = False
 

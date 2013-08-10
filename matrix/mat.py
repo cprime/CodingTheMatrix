@@ -43,17 +43,21 @@ def transpose(M):
 def vector_matrix_mul(v, M):
     "Returns the product of vector v and matrix M"
     assert M.D[0] == v.D
-    pass
+    columnDict = {col:Vec(M.D[0], {row:M[row,col] for row in M.D[0]}) for col in M.D[1]}
+    return Vec(M.D[1], {key:value*v for key,value in columnDict.items()})
 
 def matrix_vector_mul(M, v):
     "Returns the product of matrix M and vector v"
     assert M.D[1] == v.D
-    pass
+    rowDict = {row:Vec(M.D[1], {col:M[row,col] for col in M.D[1]}) for row in M.D[0]}
+    return Vec(M.D[0], {key:value*v for key,value in rowDict.items()})
 
 def matrix_matrix_mul(A, B):
     "Returns the product of A and B"
     assert A.D[1] == B.D[0]
-    pass
+    aRowDict = {row:Vec(A.D[1], {col:A[row,col] for col in A.D[1]}) for row in A.D[0]}
+    bColDict = {col:Vec(B.D[0], {row:B[row,col] for row in B.D[0]}) for col in B.D[1]}
+    return Mat((A.D[0],B.D[1]), {(r,c):row*column for r,row in aRowDict.items() for c,column in bColDict.items()})
 
 ################################################################################
 
